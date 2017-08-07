@@ -39,29 +39,8 @@ struct Book {
         let request = URL(string: urlString)
         print(request!)
         
-        let task = URLSession.shared.dataTask(with: request!) { (data, response, error) in
-            if error != nil {
-                print(error!)
-            } else {
-                var bookArray: [Book] = []
-                
-                if let data = data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-                        let bookTitles = json
-                                for item in bookTitles {
-                                    if let bookObject = try? Book(json: item) {
-                                        print(bookObject)
-                                        bookArray.append(bookObject)
-                                    }
-                                }
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                    completion(bookArray)
-                }
-            }
-            }
-        task.resume()
+        
+        
+        
     }
 }
