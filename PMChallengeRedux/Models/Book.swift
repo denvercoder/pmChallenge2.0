@@ -36,11 +36,21 @@ struct Book {
     static let urlString = "https://de-coding-test.s3.amazonaws.com/books.json"
     
     static func getBooks(completion: @escaping ([Book]) -> Void) {
-        let request = URL(string: urlString)
-        print(request!)
         
+        let url = URL(string: urlString)
+        print(url!)
         
-        
-        
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                print(error!)
+            } else {
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [[String: Any]]
+                    print(parsedData)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
     }
 }
