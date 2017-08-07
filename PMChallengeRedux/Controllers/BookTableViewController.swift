@@ -19,15 +19,7 @@ class BookTableViewController: UITableViewController {
     }
     
     func updateTableView() {
-        Book.getBooks() { (results: [Book]?) in
-            if let bookEntry = results {
-                self.bookData = bookEntry
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
+      
     }
     
     override func didReceiveMemoryWarning() {

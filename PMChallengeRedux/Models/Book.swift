@@ -13,20 +13,32 @@ struct Book {
     let author: String
     let imageURL: String
     
-    enum SerializationError: Error {
-        case missingData(String)
+//    enum SerializationError: Error {
+//        case missingData(String)
+//    }
+    
+    init(title: String, author: String, imageURL: String){
+        self.title = title
+        self.author = author
+        self.imageURL = imageURL
     }
     
-    init(json: [String: Any]) throws {
-        guard let title = json["title"] as? String else {
-            throw SerializationError.missingData("Title Not Found")
+    init?(json: [String: Any]) {
+        guard let books = json["title"] as? [String: Any],
+            let title = books["title"] as? String,
+            let author = books["author"] as? String,
+            let imageURL = books["imageURL"] as? String else {
+                return nil
         }
-        guard let author = json["author"] as? String else {
-            throw SerializationError.missingData("Author Not Found")
-        }
-        guard let imageURL = json["type"] as? String else {
-            throw SerializationError.missingData("ImageURL Not Found")
-        }
+            
+            //throw SerializationError.missingData("Title Not Found")
+//        }
+//        guard let author = json["author"] as? String else {
+//            //throw SerializationError.missingData("Author Not Found")
+//        }
+//        guard let imageURL = json["type"] as? String else {
+//            //throw SerializationError.missingData("ImageURL Not Found")
+        
         self.title = title
         self.author = author
         self.imageURL = imageURL
@@ -46,10 +58,8 @@ struct Book {
             } else {
                 do {
                     let books = try JSONSerialization.jsonObject(with: data!) as! [[String: Any]]
-                    //print(parsedData)
-                    for book in books {
-                        print(book)
-                    }
+                    print(books)
+                    
                 } catch {
                     print(error)
                 }
