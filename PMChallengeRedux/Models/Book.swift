@@ -45,8 +45,11 @@ struct Book {
                 print(error!)
             } else {
                 do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [[String: Any]]
-                    print(parsedData)
+                    let books = try JSONSerialization.jsonObject(with: data!) as! [[String: Any]]
+                    //print(parsedData)
+                    for book in books {
+                        print(book)
+                    }
                 } catch {
                     print(error)
                 }
